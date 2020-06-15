@@ -1,9 +1,9 @@
 //
 //  ViewController.h
-//  HppleDemo
+//  Demo
 //
-//  Created by Vytautas Galaunia on 11/25/14.
-//
+//  Created by Patrick Kladek on 15.06.20.
+//  Copyright © 2020 medbee. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
