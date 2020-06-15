@@ -27,26 +27,24 @@
 //  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 //  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
+#import <Hpple/Hpple.h>
 #import <XCTest/XCTest.h>
-#import "TFHpple.h"
 
-#define TEST_DOCUMENT_NAME          @"index"
-#define TEST_DOCUMENT_EXTENSION     @"html"
 
-@interface TFHppleHTMLTest : XCTestCase
+@interface TFHppleHTMLTest: XCTestCase
 
 @property (nonatomic, strong) TFHpple *doc;
 
 @end
+
 
 @implementation TFHppleHTMLTest
 
 - (void)setUp
 {
     NSBundle *testBundle = [NSBundle bundleForClass:[self class]];
-    NSURL *testFileUrl = [testBundle URLForResource:TEST_DOCUMENT_NAME withExtension:TEST_DOCUMENT_EXTENSION];
-    NSData * data = [NSData dataWithContentsOfURL:testFileUrl];
+    NSURL *testFileUrl = [testBundle URLForResource:@"index" withExtension:@"html"];
+    NSData *data = [NSData dataWithContentsOfURL:testFileUrl];
     self.doc = [[TFHpple alloc] initWithHTMLData:data];
 }
 
@@ -56,20 +54,19 @@
     XCTAssertTrue([self.doc isMemberOfClass:[TFHpple class]]);
 }
 
-//  doc.search("//p[@class='posted']")
 - (void)testSearchesWithXPath
 {
     NSArray *a = [self.doc searchWithXPathQuery:@"//a[@class='sponsor']"];
     XCTAssertEqual([a count], 2);
-    
-    TFHppleElement * e = [a objectAtIndex:0];
+
+    TFHppleElement *e = [a objectAtIndex:0];
     XCTAssertTrue([e isMemberOfClass:[TFHppleElement class]]);
 }
 
 - (void)testFindsFirstElementAtXPath
 {
     TFHppleElement *e = [self.doc peekAtSearchWithXPathQuery:@"//a[@class='sponsor']"];
-    
+
     XCTAssertEqualObjects([e content], @"RailsMachine");
     XCTAssertEqualObjects([e tagName], @"a");
 }
@@ -78,15 +75,15 @@
 {
     NSArray *a = [self.doc searchWithXPathQuery:@"//div[@class='column']//strong"];
     XCTAssertEqual([a count], 5);
-    
-    TFHppleElement * e = [a objectAtIndex:0];
+
+    TFHppleElement *e = [a objectAtIndex:0];
     XCTAssertEqualObjects([e content], @"PeepCode");
 }
 
 - (void)testPopulatesAttributes
 {
     TFHppleElement *e = [self.doc peekAtSearchWithXPathQuery:@"//a[@class='sponsor']"];
-    
+
     XCTAssertTrue([[e attributes] isKindOfClass:[NSDictionary class]]);
     XCTAssertEqualObjects([[e attributes] objectForKey:@"href"], @"http://railsmachine.com/");
 }
@@ -94,22 +91,8 @@
 - (void)testProvidesEasyAccessToAttributes
 {
     TFHppleElement *e = [self.doc peekAtSearchWithXPathQuery:@"//a[@class='sponsor']"];
-    
+
     XCTAssertEqualObjects([e objectForKey:@"href"], @"http://railsmachine.com/");
 }
-
-//  doc.at("body")['onload']
-
-
-//  (doc/"#elementID").inner_html
-
-
-//  (doc/"#elementID").to_html
-
-//  doc.at("div > div:nth(1)").css_path
-
-//  doc.at("div > div:nth(1)").xpath
-
-
 
 @end
