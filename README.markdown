@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.org/premedios/hpple.png)](https://travis-ci.org/premedios/hpple)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Pod compatible](https://img.shields.io/badge/Pod-incompatible-red.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 
 # DESCRIPTION
 
